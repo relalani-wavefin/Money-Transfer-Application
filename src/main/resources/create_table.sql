@@ -1,0 +1,31 @@
+CREATE TABLE user (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE account (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  balance number NOT NULL DEFAULT 0,
+  created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  user_id INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CREATE TABLE transaction (
+  id INT NOT NULL AUTO_INCREMENT,
+  source_account_id INT NOT NULL,
+  destination_account_id INT NOT NULL,
+  amount number NOT NULL,
+  created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  FOREIGN KEY (source_account_id) REFERENCES account(id),
+  FOREIGN KEY (destination_account_id) REFERENCES account(id)
+);
